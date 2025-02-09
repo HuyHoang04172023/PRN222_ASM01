@@ -1,1 +1,26 @@
-.vs
+# Visual Studio related files
+.vs/
+*.user
+*.suo
+
+# Build results
+bin/
+obj/
+
+# NuGet Packages
+*.nupkg
+*.snupkg
+.nuget/
+
+# Log files
+*.log
+
+# Publish outputs
+publish/
+
+# Configuration files
+appsettings.*.json
+
+# IDE Configurations
+.idea/
+.vscode/
