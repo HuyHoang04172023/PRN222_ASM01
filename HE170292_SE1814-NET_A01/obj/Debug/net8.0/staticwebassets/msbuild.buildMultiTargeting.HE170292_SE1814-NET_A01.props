@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\HE170292_SE1814-NET_A01.props" />
+</Project>
