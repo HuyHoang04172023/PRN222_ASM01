@@ -34,11 +34,6 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.MapControllerRoute(
-    name: "categories_route",
-    pattern: "categories",
-    defaults: new { controller = "Category", action = "Index" }
-);
-app.MapControllerRoute(
     name: "login",
     pattern: "login",
     defaults: new { controller = "SystemAccount", action = "Login" }
@@ -54,6 +49,56 @@ app.MapControllerRoute(
     name: "AaccessDenied",
     pattern: "AaccessDenied",
     defaults: new { controller = "SystemAccount", action = "AccessDenied" }
+);
+
+//Categories Route
+app.MapControllerRoute(
+    name: "categories",
+    pattern: "categories",
+    defaults: new { controller = "Category", action = "Index" }
+);
+
+app.MapControllerRoute(
+    name: "GetCategory",
+    pattern: "categories/{id?}",
+    defaults: new { controller = "Category", action = "Update" }
+);
+
+app.MapControllerRoute(
+    name: "CreateCategory",
+    pattern: "categories/create",
+    defaults: new { controller = "Category", action = "Create" }
+);
+
+app.MapControllerRoute(
+    name: "DeleteCategory",
+    pattern: "categories/delete/{id?}",
+    defaults: new { controller = "Category", action = "Delete" }
+);
+
+//System Account Route
+app.MapControllerRoute(
+    name: "accounts",
+    pattern: "accounts",
+    defaults: new { controller = "SystemAccount", action = "Index" }
+);
+
+app.MapControllerRoute(
+    name: "CreateAccount",
+    pattern: "accounts/create",
+    defaults: new { controller = "SystemAccount", action = "Create" }
+);
+
+app.MapControllerRoute(
+    name: "GetAccount",
+    pattern: "accounts/{id?}",
+    defaults: new { controller = "SystemAccount", action = "Update" }
+);
+
+app.MapControllerRoute(
+    name: "DeleteAccount",
+    pattern: "accounts/delete/{id?}",
+    defaults: new { controller = "SystemAccount", action = "Delete" }
 );
 
 app.Run();

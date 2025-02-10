@@ -1,22 +1,50 @@
-﻿@model List<Category>
+﻿<h2>Category List</h2>
 
-<h1>Categories</h1>
-<table>
+@if (TempData["ErrorMessage"] != null)
+{
+    <div style="color: red;">@TempData["ErrorMessage"]</div>
+}
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div style="color: green;">@TempData["SuccessMessage"]</div>
+}
+
+<a href="/categories/create" class="btn btn-success">Create</a>
+
+<table style="width: 100%; border: 1px solid black; border-collapse: collapse;">
     <thead>
         <tr>
-            <th>ID</th>
-            <th>Name</th>
+            <th>Category ID</th>
+            <th>Category Name</th>
+            <th>Description</th>
+            <th>Parent Category</th>
+            <th>Status</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var category in Model)
+        @if (ViewBag.Categories != null && (ViewBag.Categories as List<dynamic>).Any())
+        {
+            foreach (var category in ViewBag.Categories as List<dynamic>)
+            {
+                <tr>
+                    <td>@category.CategoryId</td>
+                    <td>@category.CategoryName</td>
+                    <td>@category.CategoryDescription</td>
+                    <td>@category.ParentCategoryName</td>
+                    <td>@(category.IsActive ?? false ? "Active" : "Inactive")</td>
+                    <td>
+                        <a href="/categories/@category.CategoryId" class="btn btn-primary">Update</a>
+                        <a href="/categories/delete/@category.CategoryId" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this category?');">Delete</a>
+                    </td>
+                </tr>
+            }
+        }
+        else
         {
             <tr>
-                <td>@category.CategoryId</td>
-                <td>@category.CategoryName</td>
-                <td>@category.CategoryDesciption</td>
-                <td>@category.ParentCategoryId</td>
-                <td>@category.IsActive</td>
+                <td colspan="6" style="text-align: center;">No categories found.</td>
             </tr>
         }
     </tbody>

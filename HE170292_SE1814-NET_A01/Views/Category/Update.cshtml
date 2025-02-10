@@ -1,0 +1,37 @@
+﻿@model Category
+
+<h2>Update Category</h2>
+
+<form method="post">
+    <input type="hidden" asp-for="CategoryId" />
+
+    <div>
+        <label>Category Name:</label>
+        <input type="text" asp-for="CategoryName" required />
+        <span style="color: red;">@Html.ValidationMessageFor(m => m.CategoryName)</span>
+    </div>
+
+    <div>
+        <label>Description:</label>
+        <textarea asp-for="CategoryDesciption" rows="4" cols="50"></textarea>
+        <span style="color: red;">@Html.ValidationMessageFor(m => m.CategoryDesciption)</span>
+    </div>
+
+    <div>
+        <label>Parent Category:</label>
+        <select asp-for="ParentCategoryId" asp-items="ViewBag.Categories" class="form-control"></select>
+        <span style="color: red;">@Html.ValidationMessageFor(m => m.ParentCategoryId)</span>
+    </div>
+
+    <div>
+        <label>Status:</label>
+        <select asp-for="IsActive" class="form-control">
+            <option value="true">Active</option>
+            <option value="false">Inactive</option>
+        </select>
+    </div>
+
+    <button type="submit">Update</button>
+</form>
+
+<a href="@Url.Action("Index", "Category")">Back to List</a>

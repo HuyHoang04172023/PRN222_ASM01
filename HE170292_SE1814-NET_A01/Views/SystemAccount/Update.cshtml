@@ -1,0 +1,49 @@
+﻿@{
+    var account = ViewBag.account;
+}
+
+<h2>Update Account</h2>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div style="color: red;">
+        @Html.ValidationSummary(true)
+    </div> 
+}
+
+<form method="post">
+    <input type="hidden" name="AccountId" value="@account.AccountId" />
+
+    <div>
+        <label>Account Name:</label>
+        <input type="text" name="AccountName" value="@account.AccountName"  />
+        <span style="color: red;">@Html.ValidationMessage("AccountName")</span>
+    </div>
+
+    <div>
+        <label>Email:</label>
+        <input type="email" name="AccountEmail" value="@account.AccountEmail"  />
+        <span style="color: red;">@Html.ValidationMessage("AccountEmail")</span>
+    </div>
+
+    <div>
+        <label>Role:</label>
+        <select name="AccountRole" asp-items="ViewBag.Roles"></select>
+        <span style="color: red;">@Html.ValidationMessage("AccountRole")</span>
+    </div>
+
+    <div>
+        <label>Password:</label>
+        <input type="text" name="AccountPassword" value="@account.AccountPassword"  />
+        <span style="color: red;">@Html.ValidationMessage("AccountPassword")</span>
+    </div>
+
+    <button type="submit">Update</button>
+</form>
+
+<a href="@Url.Action("Index", "accounts")">Back to List</a>
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script>
+}
