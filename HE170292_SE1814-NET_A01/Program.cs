@@ -14,7 +14,8 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     });
 
 builder.Services.AddAuthorization();
-
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -28,6 +29,7 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseSession();
 
 app.MapControllerRoute(
     name: "default",
@@ -99,6 +101,13 @@ app.MapControllerRoute(
     name: "DeleteAccount",
     pattern: "accounts/delete/{id?}",
     defaults: new { controller = "SystemAccount", action = "Delete" }
+);
+
+//Staff User Proflie Route
+app.MapControllerRoute(
+    name: "Profile",
+    pattern: "profile",
+    defaults: new { controller = "SystemAccount", action = "GetProfile" }
 );
 
 app.Run();

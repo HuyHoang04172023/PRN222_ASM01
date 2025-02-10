@@ -1,0 +1,38 @@
+﻿@{
+    var user = ViewBag.user as SystemAccount;
+}
+
+<h2>Edit Profile</h2>
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div style="color: red;">@TempData["ErrorMessage"]</div>
+}
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div style="color: green;">@TempData["SuccessMessage"]</div>
+}
+
+<form method="post" asp-action="UpdateProfile" asp-controller="SystemAccount">
+    <input type="hidden" name="AccountId" value="@user.AccountId" />
+
+    <div>
+        <label>Name:</label>
+        <input type="text" name="AccountName" value="@user.AccountName" class="form-control" required />
+    </div>
+
+    <div>
+        <label>Email:</label>
+        <input type="email" name="AccountEmail" value="@user.AccountEmail" class="form-control" required />
+    </div>
+
+    <div>
+        <label>Password:</label>
+        <input type="password" name="AccountPassword" value="@user.AccountPassword" class="form-control" required />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Update</button>
+</form>
+
+<a href="@Url.Action("Index", "Home")" class="btn btn-secondary">Back to Home</a>

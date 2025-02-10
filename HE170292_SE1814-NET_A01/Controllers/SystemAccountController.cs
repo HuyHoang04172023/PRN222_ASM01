@@ -6,6 +6,7 @@ using HE170292_SE1814_NET_A01.Models;
 using HE170292_SE1814_NET_A01.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Http;
 
 namespace HE170292_SE1814_NET_A01.Controllers
 {
@@ -104,6 +105,60 @@ namespace HE170292_SE1814_NET_A01.Controllers
             return RedirectToAction("Index", "accounts");
         }
 
+        [Authorize(Roles = "Staff")]
+        [HttpGet]
+        public IActionResult GetProfile()
+        {
+            var userId = HttpContext.Session.GetInt32("UserId");
+            if (userId == null)
+            {
+                return Redirect("login");
+            }
+
+            var user = _systemAccountsService.GetSystemAccountById((short)userId);
+            if (user == null)
+            {
+                TempData["ErrorMessage"] = "User not found.";
+                return RedirectToAction("Index", "Home");
+            }
+            ViewBag.user = user;
+            return View();
+        }
+
+        [Authorize(Roles = "Staff")]
+        [HttpPost]
+        public IActionResult UpdateProfile(SystemAccount account)
+        {
+            var userId = HttpContext.Session.GetInt32("UserId");
+            if (userId == null)
+            {
+                return Redirect("/login");
+            }
+
+            var existingUser = _systemAccountsService.GetSystemAccountById((short)userId);
+            if (existingUser == null)
+            {
+                TempData["ErrorMessage"] = "User not found.";
+                return Redirect("/profile");
+            }
+
+            existingUser.AccountName = account.AccountName;
+            existingUser.AccountEmail = account.AccountEmail;
+            existingUser.AccountPassword = account.AccountPassword;
+
+            bool success = _systemAccountsService.UpdateSystemAccount(existingUser);
+
+            if (success)
+            {
+                TempData["SuccessMessage"] = "Profile updated successfully.";
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "Failed to update profile. Please try again.";
+            }
+
+            return Redirect("/profile");
+        }
 
 
 
@@ -191,12 +246,14 @@ namespace HE170292_SE1814_NET_A01.Controllers
             if (user != null)
             {
                 var userClaims = new List<Claim>
-            {
-                new Claim(ClaimTypes.Name, user.AccountName),
-                new Claim(ClaimTypes.Email, user.AccountEmail),
-                new Claim(ClaimTypes.Role, user.AccountRole == 1 ? "Staff" :
-                                              user.AccountRole == 2 ? "Lecturer" : "Admin")
-            };
+                {
+                    new Claim(ClaimTypes.Name, user.AccountName),
+                    new Claim(ClaimTypes.Email, user.AccountEmail),
+                    new Claim(ClaimTypes.Role, user.AccountRole == 1 ? "Staff" :
+                                                  user.AccountRole == 2 ? "Lecturer" : "Admin")
+                };
+
+                HttpContext.Session.SetInt32("UserId", (int)user.AccountId);
 
                 var userClaimsIdentity = new ClaimsIdentity(userClaims, CookieAuthenticationDefaults.AuthenticationScheme);
 

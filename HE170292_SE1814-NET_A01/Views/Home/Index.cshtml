@@ -1,23 +1,5 @@
-﻿@model List<Category>
+﻿<h2>User Profile</h2>
 
-<h1>Categories</h1>
-<table>
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var category in Model)
-        {
-            <tr>
-                <td>@category.CategoryId</td>
-                <td>@category.CategoryName</td>
-                <td>@category.CategoryDesciption</td>
-                <td>@category.ParentCategoryId</td>
-                <td>@category.IsActive</td>
-            </tr>
-        }
-    </tbody>
-</table>
+<form method="get" action="/profile">
+    <button type="submit" class="btn btn-primary">Go to Profile</button>
+</form>
