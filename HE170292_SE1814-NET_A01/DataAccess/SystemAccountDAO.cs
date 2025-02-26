@@ -18,6 +18,13 @@ namespace HE170292_SE1814_NET_A01.DataAccess
             {
                 return false;
             }
+
+            bool emailExists = _context.SystemAccounts.Any(a => a.AccountEmail == newAccount.AccountEmail);
+            if (emailExists)
+            {
+                return false;
+            }
+
             var account = new SystemAccount {
                 AccountId = 0,
                 AccountName = newAccount.AccountName,

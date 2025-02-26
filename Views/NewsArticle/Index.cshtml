@@ -1,0 +1,81 @@
+﻿@{
+    var articles = ViewBag.Articles as List<dynamic>;
+}
+
+<div class="container mt-5">
+    <h2 class="mb-4">News Articles</h2>
+
+    <div class="mb-3">
+        <a href="/news-articles/create" class="btn btn-success">Create New Article</a>
+        <a href="/staff" class="btn btn-secondary">Back</a>
+    </div>
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+    }
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+    }
+
+    <table class="table table-bordered table-hover">
+        <thead class="thead-light">
+            <tr>
+                <th style="width: 10%;">Article ID</th>
+                <th style="width: 20%;">Title</th>
+                <th style="width: 15%;">Headline</th>
+                <th style="width: 15%;">Category</th>
+                <th style="width: 10%;">Created By</th>
+                <th style="width: 10%;">Updated By</th>
+                <th style="width: 10%;">Created Date</th>
+                <th style="width: 10%;">Status</th>
+                <th style="width: 20%;">Tags</th>
+                <th style="width: 15%;">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (articles != null && articles.Count > 0)
+            {
+                foreach (var article in articles)
+                {
+                    <tr>
+                        <td>@article.NewsArticleID</td>
+                        <td>@article.NewsTitle</td>
+                        <td>@article.Headline</td>
+                        <td>@article.CategoryName</td>
+                        <td>@article.CreatedByEmail</td>
+                        <td>@article.UpdatedByEmail</td>
+                        <td>@article.CreatedDate?.ToString("yyyy-MM-dd")</td>
+                        <td>
+                            <span class="badge @(article.NewsStatus == true ? "bg-success" : "bg-danger")">
+                                @(article.NewsStatus == true ? "Active" : "Inactive")
+                            </span>
+                        </td>
+                        <td>
+                            @if (article.Tags != null && article.Tags.Count > 0)
+                            {
+                                @string.Join(", ", article.Tags)
+                            }
+                            else
+                            {
+                                <span>No tags</span>
+                            }
+                        </td>
+                        <td>
+                            <a href="/news-articles/@article.NewsArticleID" class="btn btn-primary btn-sm">Update</a>
+                            <a href="/news-articles/delete/@article.NewsArticleID" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this article?');">Delete</a>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="10" class="text-center">No articles found.</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

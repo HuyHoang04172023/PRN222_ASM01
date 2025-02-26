@@ -5,33 +5,32 @@
 <form method="post">
     <div>
         <label>Account Name:</label>
-        <input type="text" asp-for="AccountName" required />
-        <span style="color: red;">@Html.ValidationMessageFor(m => m.AccountName)</span>
+        <input type="text" asp-for="AccountName" class="form-control" required />
+        <span class="text-danger">@Html.ValidationMessageFor(m => m.AccountName)</span>
     </div>
 
     <div>
         <label>Email:</label>
-        <input type="email" asp-for="AccountEmail" required />
-        <span style="color: red;">@Html.ValidationMessageFor(m => m.AccountEmail)</span>
+        <input type="email" asp-for="AccountEmail" class="form-control" required />
+        <span class="text-danger">@Html.ValidationMessageFor(m => m.AccountEmail)</span>
     </div>
 
     <div>
         <label>Role:</label>
-        <select asp-for="AccountRole">
+        <select asp-for="AccountRole" class="form-control">
             <option value="1">Staff</option>
             <option value="2">Lecturer</option>
             <option value="3">Admin</option>
         </select>
-        <span style="color: red;">@Html.ValidationMessageFor(m => m.AccountRole)</span>
+        <span class="text-danger">@Html.ValidationMessageFor(m => m.AccountRole)</span>
     </div>
 
     <div>
         <label>Password:</label>
-        <input type="text" asp-for="AccountPassword" required />
-        <span style="color: red;">@Html.ValidationMessageFor(m => m.AccountPassword)</span>
+        <input type="password" asp-for="AccountPassword" class="form-control" required />
+        <span class="text-danger">@Html.ValidationMessageFor(m => m.AccountPassword)</span>
     </div>
 
-    <button type="submit">Create</button>
+    <button type="submit" class="btn btn-primary">Create</button>
+    <a href="@Url.Action("Index", "accounts")" class="btn btn-secondary">Back to List</a>
 </form>
-
-<a href="@Url.Action("Index", "accounts")">Back to List</a>

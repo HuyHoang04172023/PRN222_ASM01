@@ -1,0 +1,82 @@
+﻿@model NewsArticle
+
+<div class="container mt-5">
+    <h2 class="mb-4 text-center">Update News Article</h2>
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+    }
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+    }
+
+    <form method="post" class="border p-4 rounded shadow-lg bg-light">
+
+        <input type="hidden" asp-for="NewsArticleId" />
+
+        <!-- Title -->
+        <div class="mb-3">
+            <label class="form-label fw-bold">Title:</label>
+            <input type="text" asp-for="NewsTitle" class="form-control" required />
+            <span class="text-danger">@Html.ValidationMessageFor(m => m.NewsTitle)</span>
+        </div>
+
+        <!-- Headline -->
+        <div class="mb-3">
+            <label class="form-label fw-bold">Headline:</label>
+            <input type="text" asp-for="Headline" class="form-control" required />
+            <span class="text-danger">@Html.ValidationMessageFor(m => m.Headline)</span>
+        </div>
+
+        <!-- Content -->
+        <div class="mb-3">
+            <label class="form-label fw-bold">Content:</label>
+            <textarea asp-for="NewsContent" class="form-control" rows="5"></textarea>
+            <span class="text-danger">@Html.ValidationMessageFor(m => m.NewsContent)</span>
+        </div>
+
+        <!-- Source -->
+        <div class="mb-3">
+            <label class="form-label fw-bold">Source:</label>
+            <input type="text" asp-for="NewsSource" class="form-control" />
+            <span class="text-danger">@Html.ValidationMessageFor(m => m.NewsSource)</span>
+        </div>
+
+        <!-- Category -->
+        <div class="mb-3">
+            <label class="form-label fw-bold">Category:</label>
+            <select asp-for="CategoryId" asp-items="@(new SelectList(ViewBag.Categories, "CategoryId", "CategoryName"))" class="form-control" required></select>
+            <span class="text-danger">@Html.ValidationMessageFor(m => m.CategoryId)</span>
+        </div>
+
+        <!-- Tags -->
+        <div class="mb-3">
+            <label class="form-label fw-bold">Tags:</label>
+            <select name="selectedTags" multiple class="form-control">
+                @foreach (var tag in ViewBag.Tags as List<Tag>)
+                {
+                    <option value="@tag.TagId" selected="@(Model.Tags.Any(t => t.TagId == tag.TagId))">@tag.TagName</option>
+                }
+            </select>
+        </div>
+
+        <!-- Status -->
+        <div class="mb-3">
+            <label class="form-label fw-bold">Status:</label>
+            <select asp-for="NewsStatus" class="form-control">
+                <option value="true">Active</option>
+                <option value="false">Inactive</option>
+            </select>
+            <span class="text-danger">@Html.ValidationMessageFor(m => m.NewsStatus)</span>
+        </div>
+
+        <!-- Buttons -->
+        <div class="d-flex justify-content-between">
+            <button type="submit" class="btn btn-primary">Update</button>
+            <a href="@Url.Action("Index", "NewsArticle")" class="btn btn-secondary">Back</a>
+        </div>
+    </form>
+</div>

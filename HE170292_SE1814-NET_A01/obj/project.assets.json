@@ -4740,11 +4740,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Codes\\PRN222\\HE170292_SE1814-NET_A01\\HE170292_SE1814-NET_A01\\HE170292_SE1814-NET_A01.csproj",
+      "projectUniqueName": "C:\\Codes\\PRN222\\HE170292_SE1814-NET_A01\\HE170292_SE1814-NET_A01\\HE170292_SE1814-NET_A01\\HE170292_SE1814-NET_A01.csproj",
       "projectName": "HE170292_SE1814-NET_A01",
-      "projectPath": "C:\\Codes\\PRN222\\HE170292_SE1814-NET_A01\\HE170292_SE1814-NET_A01\\HE170292_SE1814-NET_A01.csproj",
+      "projectPath": "C:\\Codes\\PRN222\\HE170292_SE1814-NET_A01\\HE170292_SE1814-NET_A01\\HE170292_SE1814-NET_A01\\HE170292_SE1814-NET_A01.csproj",
       "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-      "outputPath": "C:\\Codes\\PRN222\\HE170292_SE1814-NET_A01\\HE170292_SE1814-NET_A01\\obj\\",
+      "outputPath": "C:\\Codes\\PRN222\\HE170292_SE1814-NET_A01\\HE170292_SE1814-NET_A01\\HE170292_SE1814-NET_A01\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

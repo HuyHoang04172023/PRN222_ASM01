@@ -1,0 +1,61 @@
+﻿@model List<NewsArticle>
+
+<h2>Your News History</h2>
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div style="color: red;">@TempData["ErrorMessage"]</div>
+}
+
+@if (TempData["InfoMessage"] != null)
+{
+    <div style="color: blue;">@TempData["InfoMessage"]</div>
+}
+<div class="mb-3">
+    <a href="/staff" class="btn btn-secondary">Back</a>
+</div>
+@if (Model != null && Model.Any())
+{
+    <table style="width: 100%; border-collapse: collapse; border: 1px solid black;">
+        <thead>
+            <tr style="background-color: #f2f2f2;">
+                <th style="border: 1px solid black; padding: 8px;">Title</th>
+                <th style="border: 1px solid black; padding: 8px;">Headline</th>
+                <th style="border: 1px solid black; padding: 8px;">NewsContent</th>
+                <th style="border: 1px solid black; padding: 8px;">NewsSource</th>
+                <th style="border: 1px solid black; padding: 8px;">Category</th>
+                <th style="border: 1px solid black; padding: 8px;">Tags</th>
+                <th style="border: 1px solid black; padding: 8px;">Created Date</th>
+                <th style="border: 1px solid black; padding: 8px;">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var article in Model)
+            {
+                <tr>
+                    <td style="border: 1px solid black; padding: 8px;">@article.NewsTitle</td>
+                    <td style="border: 1px solid black; padding: 8px;">@article.Headline</td>
+                    <td style="border: 1px solid black; padding: 8px;">@article.NewsContent</td>
+                    <td style="border: 1px solid black; padding: 8px;">@article.NewsSource</td>
+                    <td style="border: 1px solid black; padding: 8px;">@article.Category?.CategoryName</td>
+                    <td style="border: 1px solid black; padding: 8px;">
+                        @if (article.Tags != null && article.Tags.Any())
+                        {
+                            @string.Join(", ", article.Tags.Select(tag => tag.TagName))
+                        }
+                        else
+                        {
+                            <span>No Tags</span>
+                        }
+                    </td>
+                    <td style="border: 1px solid black; padding: 8px;">@article.CreatedDate?.ToString("yyyy-MM-dd")</td>
+                    <td style="border: 1px solid black; padding: 8px;">@(article.NewsStatus == true ? "Active" : "Inactive")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No news articles found.</p>
+}
